@@ -1,6 +1,8 @@
 [submodule "viajeros-del-eje-web"]
 	path = viajeros-del-eje-web
 	url = git@github.com:Devsworld-software/viajeros-del-eje-web.git
+	branch = developer
 [submodule "viajeros-del-eje-api"]
 	path = viajeros-del-eje-api
 	url = git@github.com:Devsworld-software/viajeros-del-eje-api.git
+	branch = developer
