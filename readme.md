@@ -1,36 +1,171 @@
-# 🌍 Proyecto Viajeros del Eje
+Proyecto Viajeros del Eje
+=========================
 
-Este proyecto consiste en un ecosistema integral con un **frontend** desarrollado en **Next.js** y un **backend** en **Laravel**, utilizando un entorno de desarrollo unificado mediante **Docker Compose**.
+Este proyecto consiste en un frontend en Next.js y un backend en Laravel, con un entorno de desarrollo local unificado usando Docker Compose.
 
----
+Producción:
+- Frontend → Desplegado en Vercel
+- Backend → Desplegado en VPS o hosting propio
 
-## 1️⃣ Estructura del Proyecto
+Desarrollo local:
+- Docker Compose permite levantar todos los servicios de manera rápida y consistente en cualquier máquina.
 
-El repositorio principal organiza los componentes mediante submódulos de Git:
+------------------------------------------------------------------
 
-```text
+1️⃣ Estructura del proyecto
+
 proyecto-padre/
-├── viajeros-del-eje-web/        # Submódulo frontend (Next.js)
-├── viajeros-del-eje-api/        # Submódulo backend (Laravel)
-└── docker-compose.dev.yml       # Orquestador de desarrollo local
-[!WARNING]El archivo docker-compose.dev.yml es de uso exclusivo para desarrollo local. No debe utilizarse en entornos de producción.2️⃣ RepositoriosRepositorioTecnologíaDescripciónviajeros-del-eje-webNext.jsInterfaz de usuario y lógica de cliente.viajeros-del-eje-apiLaravelAPI REST y gestión de base de datos.Nota: Cada repositorio es independiente, con su propio historial de commits y flujo de despliegue.3️⃣ Requisitos PreviosPara ejecutar este proyecto localmente, asegúrate de tener instalado:Docker y Docker ComposeGitOpcional: Node.js y Composer (si prefieres ejecutar servicios fuera de Docker).4️⃣ Configuración Inicial4.1 Clonar el repositorio con submódulosPara descargar el proyecto padre junto con todo el código de los submódulos, ejecuta:Bash# Clonar con todos los submódulos incluidos
-git clone --recurse-submodules <URL_REPO_PADRE> proyecto-padre
-cd proyecto-padre
+├── viajeros-del-eje-web/   # Repositorio frontend (Next.js)
+├── viajeros-del-eje-api/   # Repositorio backend (Laravel)
+└── docker-compose.dev.yml  # Entorno de desarrollo local
 
-# Si ya habías clonado el repo sin los submódulos:
-git submodule update --init --recursive
-4.2 Variables de Entorno (.env)Es necesario configurar los archivos de entorno en cada subdirectorio. Puedes basarte en los archivos .env.example existentes.Frontend (viajeros-del-eje-web/.env)Fragmento de códigoNEXT_PUBLIC_API_URL=http://backend:8000/api
+Nota: docker-compose.dev.yml solo se usa para desarrollo local. No se despliega en producción.
+
+------------------------------------------------------------------
+
+2️⃣ Repositorios
+
+Repositorio: viajeros-del-eje-web
+Tecnología: Next.js
+Descripción: Frontend del proyecto
+Enlace: https://github.com/tu-org/viajeros-del-eje-web
+
+Repositorio: viajeros-del-eje-api
+Tecnología: Laravel
+Descripción: Backend del proyecto
+Enlace: https://github.com/tu-org/viajeros-del-eje-api
+
+Cada repositorio es independiente, con su propio flujo de commits y despliegues.
+Los repositorios deben clonarse dentro de la carpeta padre donde también se colocará docker-compose.dev.yml.
+
+------------------------------------------------------------------
+
+3️⃣ Requisitos para desarrollo
+
+- Docker y Docker Compose
+- Git
+- Opcional (si no se usa Docker): Node.js y Composer
+
+------------------------------------------------------------------
+
+4️⃣ Configuración inicial para un nuevo desarrollador
+
+4.1 Clonar los repositorios dentro de la carpeta padre
+
+cd proyecto-padre
+git clone git@github.com:tu-org/viajeros-del-eje-web.git viajeros-del-eje-web
+git clone git@github.com:tu-org/viajeros-del-eje-api.git viajeros-del-eje-api
+
+4.2 Colocar Docker Compose
+
+proyecto-padre/
+├── viajeros-del-eje-web/
+├── viajeros-del-eje-api/
+└── docker-compose.dev.yml
+
+4.3 Configurar variables de entorno
+
+Frontend (viajeros-del-eje-web/.env)
+
+NEXT_PUBLIC_API_URL=http://backend:8000/api
 NEXTAUTH_URL=http://backend:8000
 NEXTAUTH_SECRET=XXXXXXXXXXXXX
-Backend (viajeros-del-eje-api/.env)Fragmento de códigoAPP_URL=http://backend:8000
+
+Backend (viajeros-del-eje-api/.env)
+
+APP_URL=http://backend:8000
 DB_CONNECTION=pgsql
 DB_HOST=postgres
 DB_PORT=5432
 DB_DATABASE=viajeros_del_eje_api
 DB_USERNAME=devsworld
 DB_PASSWORD=root
-[!IMPORTANT]Nunca subas los archivos .env al repositorio de Git.5️⃣ Levantar el Entorno de DesarrolloPara iniciar todos los servicios (Frontend, API y Base de Datos), ejecuta:Bashdocker compose -f docker-compose.dev.yml up --build
-Accesos Locales:Frontend: http://localhost:3000Backend (API): http://localhost:8000/apiPostgreSQL: Puerto 5435El entorno soporta Hot Reload, por lo que los cambios realizados en el código se verán reflejados al instante.6️⃣ Flujo de TrabajoRealizar modificaciones en las carpetas viajeros-del-eje-web/ o viajeros-del-eje-api/.Probar los cambios en el entorno local de Docker.Hacer commit y push en el repositorio hijo correspondiente:Bashgit add .
-git commit -m "Descripción clara del cambio"
+
+Puedes copiar .env.example y completarlo según tu entorno local.
+Nunca subir .env a Git.
+
+------------------------------------------------------------------
+
+5️⃣ Levantar el entorno de desarrollo
+
+Desde la carpeta padre:
+
+docker compose -f docker-compose.dev.yml up --build
+
+Contenedores disponibles:
+
+Servicio      URL / Puerto
+---------    ----------------------
+Frontend     http://localhost:3000
+Backend      http://localhost:8000/api
+PostgreSQL   Puerto 5435
+
+Docker monta las carpetas locales, por lo que los cambios se reflejan automáticamente (hot reload).
+
+------------------------------------------------------------------
+
+6️⃣ Flujo de trabajo para desarrollo
+
+1. Editar código en viajeros-del-eje-web/ o viajeros-del-eje-api/
+2. Probar cambios en localhost
+3. Realizar commit y push en el repositorio correspondiente:
+
+git add .
+git commit -m "Descripción del cambio"
 git push origin main
-7️⃣ Despliegue (Producción)Frontend: Despliegue automático en Vercel conectado al repositorio del frontend.Backend: Despliegue en VPS / Hosting configurado para Laravel.Variables de Producción: Asegúrate de cambiar la NEXT_PUBLIC_API_URL a la URL real de la API (ej: https://api.viajerosdeleje.com/api).8️⃣ Buenas PrácticasSincronización: Si el repositorio padre se actualiza, recuerda ejecutar:git pull origin main && git submodule update --init --recursiveVersionamiento: Mantén la compatibilidad de la API para no afectar al frontend durante los despliegues.Seguridad: Valida siempre que las credenciales de base de datos sean distintas en producción.9️⃣ Soporte y ContactoDesarrollador: devsworldsoftware@gmail.comDocumentación adicional: Revisar la carpeta de documentación dentro del repositorio de la API.Proyecto desarrollado por DevsWorld.
+
+- Frontend → Vercel detecta el commit y realiza deploy automático
+- Backend → Deploy según configuración del VPS / hosting
+
+Docker solo se usa para desarrollo local y no afecta producción.
+
+------------------------------------------------------------------
+
+7️⃣ Producción
+
+- Frontend: Deploy en Vercel desde el repositorio viajeros-del-eje-web
+- Backend: Deploy en VPS / hosting desde el repositorio viajeros-del-eje-api
+
+Variables de entorno en producción:
+
+Frontend:
+NEXT_PUBLIC_API_URL=https://api.viajerosdeleje.com/api
+
+Backend: Configurar en servidor (DB real, API keys, etc.)
+
+Nunca usar .env local en producción.
+
+------------------------------------------------------------------
+
+8️⃣ Buenas prácticas
+
+- Docker Compose → solo para desarrollo local
+- Repositorios separados → commits y deploys independientes
+- Git → fuente de verdad
+- Cambios en la API → mantener compatibilidad hacia atrás (/api/v1) hasta que frontend se actualice
+- Variables de entorno → nunca subir a Git
+
+------------------------------------------------------------------
+
+9️⃣ Flujo visual de desarrollo y producción
+
+Desarrollo local:
+viajeros-del-eje-web/ + viajeros-del-eje-api/ + postgres (Docker)
+        ↓
+localhost:3000 (frontend)
+localhost:8000 (backend)
+
+Producción:
+viajeros-del-eje-web/ repo → Vercel
+viajeros-del-eje-api/ repo → VPS / hosting
+        ↓
+Comunicación vía API pública: https://api.viajerosdeleje.com
+
+------------------------------------------------------------------
+
+🔟 Soporte
+
+Contacto: devsworldsoftware@gmail.com
+Documentación de API interna: Revisar endpoints en Laravel y Swagger (si aplica)
+
+Este README asegura que cualquier nuevo desarrollador pueda levantar todo el proyecto localmente, entender la separación de repositorios y manejar correctamente los commits y despliegues.
