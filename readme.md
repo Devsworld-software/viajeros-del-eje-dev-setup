@@ -1,67 +1,152 @@
-Proyecto Viajeros del Eje
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyecto Viajeros del Eje</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    code {
+      background: #eee;
+      padding: 2px 5px;
+      border-radius: 3px;
+    }
+    table {
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+    blockquote {
+      border-left: 4px solid #2c3e50;
+      padding-left: 10px;
+      color: #555;
+      margin: 10px 0;
+      background: #f0f0f0;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #ccc;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
 
-Este proyecto contiene un frontend en Next.js y un backend en Laravel, con un entorno de desarrollo local unificado usando Docker Compose.  
+<h1>Proyecto <strong>Viajeros del Eje</strong></h1>
 
-En producción:
-- Frontend → desplegado en Vercel
-- Backend → desplegado en un VPS o hosting propio
+<p>Este proyecto consiste en un <strong>frontend</strong> en <strong>Next.js</strong> y un <strong>backend</strong> en <strong>Laravel</strong>, con un entorno de desarrollo local unificado usando <strong>Docker Compose</strong>.</p>
 
-Docker Compose se utiliza solo para desarrollo local, permitiendo levantar todos los servicios de manera rápida y consistente en cualquier máquina.
+<ul>
+  <li><strong>Producción</strong>
+    <ul>
+      <li>Frontend → Desplegado en Vercel</li>
+      <li>Backend → Desplegado en VPS o hosting propio</li>
+    </ul>
+  </li>
+  <li><strong>Desarrollo local</strong>
+    <ul>
+      <li>Docker Compose permite levantar todos los servicios de manera rápida y consistente en cualquier máquina.</li>
+    </ul>
+  </li>
+</ul>
 
----
+<hr>
 
-1️⃣ Estructura del proyecto
+<h2>1️⃣ Estructura del proyecto</h2>
 
+<pre>
 proyecto-padre/
-├── front/       ← Repositorio frontend (Next.js)
-├── back/        ← Repositorio backend (Laravel)
-└── docker-compose.dev.yml  ← Entorno de desarrollo local
+├── viajeros-del-eje-web/                  # Repositorio frontend (Next.js)
+├── viajeros-del-eje-api/                   # Repositorio backend (Laravel)
+└── docker-compose.dev.yml  # Entorno de desarrollo local
+</pre>
 
-Nota: docker-compose.dev.yml solo se usa para desarrollo. No se despliega en producción.
+<blockquote>⚠️ Nota: <code>docker-compose.dev.yml</code> solo se usa para <strong>desarrollo local</strong>. No se despliega en producción.</blockquote>
 
----
+<hr>
 
-2️⃣ Repositorios
+<h2>2️⃣ Repositorios</h2>
 
-- Frontend (Next.js): [viajeros-del-eje-web](#)
-- Backend (Laravel): [viajeros-del-eje-api](#)
+<table>
+  <tr>
+    <th>Repositorio</th>
+    <th>Tecnología</th>
+    <th>Descripción</th>
+  </tr>
+  <tr>
+    <td>viajeros-del-eje-web</td>
+    <td>Next.js</td>
+    <td>Frontend del proyecto</td>
+  </tr>
+  <tr>
+    <td>viajeros-del-eje-api</td>
+    <td>Laravel</td>
+    <td>Backend del proyecto</td>
+  </tr>
+</table>
 
-Cada repositorio es independiente, con su propio flujo de commits y despliegue.
+<p>Cada repositorio es independiente, con su propio flujo de <strong>commits</strong> y <strong>despliegues</strong>.</p>
 
----
+<hr>
 
-3️⃣ Requisitos para desarrollo
+<h2>3️⃣ Requisitos para desarrollo</h2>
+<ul>
+  <li>Docker y Docker Compose</li>
+  <li>Git</li>
+  <li>Opcional (si no se usa Docker): Node.js y Composer</li>
+</ul>
 
-- Docker y Docker Compose
-- Git
-- Opcional para desarrollo local sin Docker: Node.js y Composer
+<hr>
 
----
+<h2>4️⃣ Configuración inicial para un nuevo desarrollador</h2>
 
-4️⃣ Configuración inicial para un nuevo desarrollador
-
-4.1 Clonar los repositorios
-
+<h3>4.1 Clonar los repositorios</h3>
+<pre>
 git clone git@github.com:tu-org/viajeros-del-eje-web.git front
 git clone git@github.com:tu-org/viajeros-del-eje-api.git back
+</pre>
 
-4.2 Copiar el Docker Compose de desarrollo
-
-Colocar docker-compose.dev.yml en la carpeta padre, junto a front/ y back/:
-
+<h3>4.2 Colocar Docker Compose</h3>
+<pre>
 proyecto-padre/
 ├── front/
 ├── back/
 └── docker-compose.dev.yml
+</pre>
 
-4.3 Configurar variables de entorno
+<h3>4.3 Configurar variables de entorno</h3>
 
-Frontend (front/.env)
+<p><strong>Frontend (<code>front/.env</code>)</strong></p>
+<pre>
 NEXT_PUBLIC_API_URL=http://backend:8000/api
 NEXTAUTH_URL=http://backend:8000
 NEXTAUTH_SECRET=XXXXXXXXXXXXX
+</pre>
 
-Backend (back/.env)
+<p><strong>Backend (<code>back/.env</code>)</strong></p>
+<pre>
 APP_URL=http://backend:8000
 DB_CONNECTION=pgsql
 DB_HOST=postgres
@@ -69,85 +154,119 @@ DB_PORT=5432
 DB_DATABASE=viajeros_del_eje_api
 DB_USERNAME=devsworld
 DB_PASSWORD=root
+</pre>
 
-Puedes copiar .env.example y completarlo según las variables locales. Nunca subir .env a Git.
+<blockquote>Puedes copiar <code>.env.example</code> y completarlo según tu entorno local.<br>❌ Nunca subir <code>.env</code> a Git.</blockquote>
 
----
+<hr>
 
-5️⃣ Levantar el entorno de desarrollo
+<h2>5️⃣ Levantar el entorno de desarrollo</h2>
 
-Desde la carpeta padre (proyecto-padre/):
-
+<p>Desde la carpeta padre:</p>
+<pre>
 docker compose -f docker-compose.dev.yml up --build
+</pre>
 
-Esto levantará los contenedores:
-- Frontend: http://localhost:3000
-- Backend: http://localhost:8000/api
-- PostgreSQL: puerto 5435
+<p><strong>Contenedores disponibles:</strong></p>
+<table>
+  <tr>
+    <th>Servicio</th>
+    <th>URL / Puerto</th>
+  </tr>
+  <tr>
+    <td>Frontend</td>
+    <td>http://localhost:3000</td>
+  </tr>
+  <tr>
+    <td>Backend</td>
+    <td>http://localhost:8000/api</td>
+  </tr>
+  <tr>
+    <td>PostgreSQL</td>
+    <td>Puerto 5435</td>
+  </tr>
+</table>
 
-Docker monta las carpetas locales, por lo que los cambios en el código se reflejan automáticamente (hot reload).
+<blockquote>Docker monta las carpetas locales, por lo que los cambios se reflejan automáticamente (<strong>hot reload</strong>).</blockquote>
 
----
+<hr>
 
-6️⃣ Flujo de trabajo para desarrollo
+<h2>6️⃣ Flujo de trabajo para desarrollo</h2>
+<ol>
+  <li>Editar código en <code>front/</code> o <code>back/</code></li>
+  <li>Probar cambios en <code>localhost</code></li>
+  <li>Realizar commit y push en el repositorio correspondiente:</li>
+</ol>
 
-1. Edita código en front/ o back/
-2. Prueba los cambios en localhost
-3. Realiza commit y push en el repositorio correspondiente:
-
+<pre>
 git add .
 git commit -m "Descripción del cambio"
 git push origin main
+</pre>
 
-4. Frontend → Vercel detecta el commit y realiza deploy automático
-5. Backend → Deploy según configuración del VPS / hosting
+<ul>
+  <li><strong>Frontend</strong> → Vercel detecta el commit y realiza deploy automático</li>
+  <li><strong>Backend</strong> → Deploy según configuración del VPS / hosting</li>
+</ul>
 
-Docker es solo para desarrollo local, no afecta producción.
+<blockquote>Docker solo se usa para desarrollo local y <strong>no afecta producción</strong>.</blockquote>
 
----
+<hr>
 
-7️⃣ Producción
+<h2>7️⃣ Producción</h2>
+<ul>
+  <li><strong>Frontend</strong>: Deploy en Vercel desde el repositorio <code>front/</code></li>
+  <li><strong>Backend</strong>: Deploy en VPS / hosting desde el repositorio <code>back/</code></li>
+</ul>
 
-- Frontend: Deploy en Vercel desde el repositorio front/
-- Backend: Deploy en VPS / hosting desde el repositorio back/
+<p><strong>Variables de entorno en producción:</strong></p>
 
-Variables de entorno en producción:
-- Frontend: NEXT_PUBLIC_API_URL=https://api.viajerosdeleje.com/api
-- Backend: configurar en servidor (DB real, API keys, etc.)
+<p>Frontend:</p>
+<pre>
+NEXT_PUBLIC_API_URL=https://api.viajerosdeleje.com/api
+</pre>
 
-Nunca usar .env local en producción.
+<p>Backend: Configurar en servidor (DB real, API keys, etc.)</p>
 
----
+<blockquote>❌ Nunca usar <code>.env</code> local en producción.</blockquote>
 
-8️⃣ Buenas prácticas
+<hr>
 
-- Docker Compose solo para desarrollo
-- Repos separados → commits y deploys independientes
-- Git → fuente de verdad
-- Cambios en la API → mantener compatibilidad hacia atrás (/api/v1) hasta que frontend se actualice
-- Variables de entorno → no subir a Git
+<h2>8️⃣ Buenas prácticas</h2>
+<ul>
+  <li>Docker Compose → solo para <strong>desarrollo local</strong></li>
+  <li>Repositorios separados → commits y deploys independientes</li>
+  <li>Git → fuente de verdad</li>
+  <li>Cambios en la API → mantener compatibilidad hacia atrás (<code>/api/v1</code>) hasta que frontend se actualice</li>
+  <li>Variables de entorno → nunca subir a Git</li>
+</ul>
 
----
+<hr>
 
-9️⃣ Flujo visual de desarrollo y producción
-
+<h2>9️⃣ Flujo visual de desarrollo y producción</h2>
+<pre>
 Desarrollo local:
 front/ + back/ + postgres (Docker)
-       ↓
-     localhost:3000 (frontend)
-     localhost:8000 (backend)
+        ↓
+localhost:3000 (frontend)
+localhost:8000 (backend)
 
 Producción:
 front/ repo → Vercel
-back/ repo  → VPS / hosting
-       ↓
-    Comunicación via API pública (https://api.viajerosdeleje.com)
+back/ repo → VPS / hosting
+        ↓
+Comunicación vía API pública: http://localhost:8000/api
+</pre>
 
----
+<hr>
 
-🔟 Soporte
+<h2>🔟 Soporte</h2>
+<ul>
+  <li><strong>Contacto:</strong> devsworldsoftware@gmail.com</li>
+  <li><strong>Documentación de API interna:</strong> Revisar endpoints en Laravel y Swagger (si aplica)</li>
+</ul>
 
-- Contacto: devsworldsoftware@gmail.com
-- Documentación de API interna: revisar endpoints en Laravel y Swagger (si aplica)
+<blockquote>Este README asegura que cualquier nuevo desarrollador pueda levantar todo el proyecto localmente, entender la separación de repositorios y manejar correctamente los commits y despliegues.</blockquote>
 
-Este README asegura que cualquier nuevo desarrollador pueda levantar todo el proyecto localmente, entender la separación de repositorios y manejar correctamente los commits y despliegues.
+</body>
+</html>
