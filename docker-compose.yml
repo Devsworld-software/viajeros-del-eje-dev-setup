@@ -51,7 +51,6 @@ services:
       - "3000:3000"
     env_file:
       - ./viajeros-del-eje-web/.env
-    command: pnpm dev  # <-- modo desarrollo
     volumes:
       - ./viajeros-del-eje-web:/app  # sí para dev
     depends_on:
